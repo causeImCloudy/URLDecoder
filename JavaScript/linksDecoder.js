@@ -17,6 +17,18 @@ function decode_microsoftSafelinks(url){
     var left = url.search('=');
     var link = url.slice(left+1, right);
     return safeDecodeURIComponent(link);
+
+    //unconfirmed code from what i could find on google, not read to put it in yet
+    /*
+    var url_segments = url.split("?")[1];
+    var params = url_segments.split("&");
+    for(x=0;x<params.length;x++)
+    {
+        namval = params[x].split("=");
+        if(namval[0]=="url") url = namval[1];
+    }
+    return safeDecodeURIComponent(url)
+    */
 }
 function safeDecodeURIComponent(url){
     //function to safely run decode URI component and add a catch to return url if fail for what ever reason.
@@ -52,7 +64,7 @@ function decode_link_to_URL(url){
             var errorMsg = 'Error: No decoding occured possible unencoded link.\t';
             returnLink = errorMsg.concat(url);
         }
-        return returnLink;
+        return safeDecodeURIComponent(returnLink);
     }
     catch(err){
         console.log('Error Decoding URL' + err.message);
