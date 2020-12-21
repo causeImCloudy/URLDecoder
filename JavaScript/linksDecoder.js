@@ -19,7 +19,7 @@ function decode_microsoftSafelinks(url) {
     const link = url.slice(left + 1, right);
     return safeDecodeURIComponent(link);
 
-    //unconfirmed code from what i could find on google, not read to put it in yet
+    // unconfirmed code from what i could find on google, not read to put it in yet
     /*
     var url_segments = url.split("?")[1];
     var params = url_segments.split("&");
@@ -61,15 +61,9 @@ function decode_link_to_URL(url) {
             const errorMsg = 'Error: No decoding occured possible unencoded link.\t';
             returnLink = errorMsg.concat(url);
         }
-<<<<<<< HEAD
-        return safeDecodeURIComponent(returnLink);
-    }
-    catch(err){
-=======
 
         return returnLink;
     } catch (err) {
->>>>>>> cb2f310874531e5ea3a7546e691603ea6c249daa
         console.log('Error Decoding URL' + err.message);
     }
 
