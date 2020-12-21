@@ -130,7 +130,7 @@ def decode_links_to_url(links):
                 #again
                 if re.search(r'cudasvc', url[:50], re.IGNORECASE) is not None:
                     url = url.split("&")[0]
-                    url = url.split("=")[1]
+                    url = url.split("=")[1] #!!!!!
                     url = urllib.parse.unquote(url)
                     basic_urls.append(url)
                 else:
