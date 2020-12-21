@@ -137,9 +137,9 @@ def decode_links_to_url(links):
                     basic_urls.append(url)
             #duplicated here to catch actual cudasvc links
             elif re.search(r'cudasvc', url[:50], re.IGNORECASE) is not None:
+                    url = urllib.parse.unquote(url)
                     url = url.split("&")[0]
                     url = url.split("=")[1]
-                    url = urllib.parse.unquote(url)
                     basic_urls.append(url)
             else:
                 basic_urls.append(url)
