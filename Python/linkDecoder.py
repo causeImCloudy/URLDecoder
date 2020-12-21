@@ -9,20 +9,19 @@ import argparse
 
 #Python util from proofpoint to decode urls
 
-class URLDefenseDecoder():
+class URLDefenseDecoder:
 
-    @staticmethod
-    def __init__():
-        URLDefenseDecoder.ud_pattern = re.compile(r'https://urldefense(?:\.proofpoint)?\.com/(v[0-9])/')
-        URLDefenseDecoder.v1_pattern = re.compile(r'u=(?P<url>.+?)&k=')
-        URLDefenseDecoder.v2_pattern = re.compile(r'u=(?P<url>.+?)&[dc]=')
-        URLDefenseDecoder.v3_pattern = re.compile(r'v3/__(?P<url>.+?)__;(?P<enc_bytes>.*?)!')
-        URLDefenseDecoder.v3_token_pattern = re.compile(r"\*(\*.)?")
-        URLDefenseDecoder.v3_run_mapping = {}
+    def __init__(self):
+        self.ud_pattern = re.compile(r'https://urldefense(?:\.proofpoint)?\.com/(v[0-9])/')
+        self.v1_pattern = re.compile(r'u=(?P<url>.+?)&k=')
+        self.v2_pattern = re.compile(r'u=(?P<url>.+?)&[dc]=')
+        self.v3_pattern = re.compile(r'v3/__(?P<url>.+?)__;(?P<enc_bytes>.*?)!')
+        self.v3_token_pattern = re.compile(r"\*(\*.)?")
+        self.v3_run_mapping = {}
         run_values = string.ascii_uppercase + string.ascii_lowercase + string.digits + '-' + '_'
         run_length = 2
         for value in run_values:
-            URLDefenseDecoder.v3_run_mapping[value] = run_length
+            self.v3_run_mapping[value] = run_length
             run_length += 1
 
     def decode(self, rewritten_url):
@@ -105,7 +104,8 @@ def decode_links_to_url(links):
     #this should avoid creating the decoder object each time saving process time during init on large link pools.
 
     #for somereason this gives an error but on execution no errors occur
-    pp_decoder = URLDefenseDecoder.__init__()
+    # pp_decoder = URLDefenseDecoder.__init__()
+    pp_decoder = URLDefenseDecoder()
 
     basic_urls=[]
 
@@ -160,7 +160,7 @@ args = parser.parse_args()
 if(args.file is None):
     links.append(str(args.url))
 else:
-    with open(str(args.file), 'f') as f:
+    with open(str(args.file), 'r') as f:
         links = f.readlines()
 
 urls = decode_links_to_url(links)
