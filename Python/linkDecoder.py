@@ -103,8 +103,6 @@ def decode_links_to_url(links):
     #created for loop within this context in the event of a large number of links that are proofpoint
     #this should avoid creating the decoder object each time saving process time during init on large link pools.
 
-    #for somereason this gives an error but on execution no errors occur
-    # pp_decoder = URLDefenseDecoder.__init__()
     pp_decoder = URLDefenseDecoder()
 
     basic_urls=[]
