@@ -11,9 +11,9 @@ function decode_proofpoint(rewritten_url) {
 
     // intialize regex expressions all slightly modiefied to work in JS
     const ud_pattern = /https:\/\/urldefense(?:\.proofpoint)?\.com\/(v[0-9])\//;
-    const v1_pattern = /u=(?<url>.+?)&.+?k=/;
+    const v1_pattern = /u=(?<url>.+?)&.*?k=/;
     const v2_pattern = /u=(?<url>.+?)&[dc]=/;
-    const v3_pattern = /v3\/__(?<url>.+?)__;(?<enc_bytes>.*?)!/;
+    const v3_pattern = /v3\/__(?<url>.*?)__;(?<enc_bytes>.*?)!/;
     const v3_token_pattern = /\*(\*.)?/;
 
     // initated variables for encoding process, using array in reveres logic to python as python was using a dict
@@ -47,6 +47,7 @@ function decode_proofpoint(rewritten_url) {
     // copied logic, 
     function decode_v1(url) {
         const v1_match = url.match(v1_pattern);
+
         if(v1_match != null) {
             const encoded_url = v1_match.groups['url'];
             const html_encoded_url = decodeURIComponent(encoded_url);

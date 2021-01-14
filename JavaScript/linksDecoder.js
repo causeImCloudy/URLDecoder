@@ -5,7 +5,7 @@ function decode_proofpoint(rewritten_url) {
 
     // intialize regex expressions all slightly modiefied to work in JS
     const ud_pattern = /https:\/\/urldefense(?:\.proofpoint)?\.com\/(v[0-9])\//;
-    const v1_pattern = /u=(?<url>.+?)&.+?k=/;
+    const v1_pattern = /u=(?<url>.+?)&.*?k=/;
     const v2_pattern = /u=(?<url>.+?)&[dc]=/;
     const v3_pattern = /v3\/__(?<url>.+?)__;(?<enc_bytes>.*?)!/;
     const v3_token_pattern = /\*(\*.)?/;
@@ -115,7 +115,7 @@ function decode_proofpoint(rewritten_url) {
             let enc_bytes = v3_match.groups['enc_bytes'];
             enc_bytes += '==';
             //javascript equivilant of urlsafe base64 decode
-            dec_bytes = decodeURI(safeDecodeURIComponent((Buffer.from(enc_bytes, 'base64'))));
+            dec_bytes = decodeURI(escape((Buffer.from(enc_bytes, 'base64'))));
             return substitute_tokens(encoded_url);
         } else {
             console.log('Error Parsing URL');
